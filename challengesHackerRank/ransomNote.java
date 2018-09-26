@@ -11,33 +11,37 @@ public class ransomNote {
 		Hashtable<String, Integer> msg = new Hashtable<String,Integer>();
 		Hashtable<String, Integer> checker = new Hashtable<String,Integer>();
 		
-		Arrays.stream(magazine).forEach(e->{
-			msg.put(e, 1);
-		});
-	
-		Arrays.stream(note).forEach(not->{			
-			if(msg.containsKey(not) ) {
-				if(checker.containsKey(not)) {
-						int cVal =checker.get(not);
-						checker.replace(not, cVal, cVal+1);
-					}
-				else {checker.put(not, 1);}
-			}
-		});
+		msg = convertArrToTabl(magazine);
+		checker = convertArrToTabl(note);
 		
-		if(note.length == checker.size()) {
-			System.out.println("Yes");
+		Boolean setVal = true;
+		Enumeration<String> allVal = checker.keys();
+
+		while(allVal.hasMoreElements() && setVal) {
+			String checkVal=allVal.nextElement();	
+			if(msg.containsKey(checkVal)) {
+				if(checker.get(checkVal) <= msg.get(checkVal)) {}
+				else {System.out.println("No"); setVal=false;}}
+				else {System.out.println("No"); setVal=false;}
 		}
-		else {
-			System.out.println(checker);
-			System.out.format("%d,%d\n",note.length,checker.size());
-			System.out.println("No");
-		}
+		if (setVal==true)System.out.println("Yes");
     }
+	
+	static Hashtable<String, Integer> convertArrToTabl(String [] inpArr){
+		Hashtable<String, Integer> rtrnTable = new Hashtable<String,Integer>();
+			
+			Arrays.stream(inpArr).forEach(val->{
+				if(rtrnTable.containsKey(val) ) {
+							int cVal =rtrnTable.get(val);
+							rtrnTable.replace(val, cVal, cVal+1);}
+					else {rtrnTable.put(val, 1);}
+			});
+		return rtrnTable;
+	}
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		File inpFile = new File("C:\\Users\\sreer\\Desktop\\problemInput\\input19.txt");
+		File inpFile = new File("C:\\Users\\spulavar\\Desktop\\input11.txt");
 		Scanner scn = new Scanner(inpFile);
 		
 		int m = Integer.parseInt(scn.nextLine());
