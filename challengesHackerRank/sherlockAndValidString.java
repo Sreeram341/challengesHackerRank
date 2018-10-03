@@ -1,3 +1,4 @@
+package challengesHackerRank;
 import java.util.*;
 
 public class sherlockAndValidString {
