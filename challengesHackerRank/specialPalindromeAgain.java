@@ -3,31 +3,37 @@ package challengesHackerRank;
 import java.util.*;
 
 public class specialPalindromeAgain {
-
-	static List<StringBuilder> combinationList = new ArrayList<StringBuilder>();
 	static List<String[]> oldcombinationList = new ArrayList<String[]>();
 	
 	static long substrCount(int n, String s) {
-		long retrncntr=0;
+		long retrncntr=0; 
 		generateCombinations("-",s);
 		
 		for (String[] allEntries:oldcombinationList) {
-			System.out.println(Arrays.toString(allEntries));
+			
 			int leng = allEntries.length;
 			int mid =-1;
+			int cntr=0;
 			if(leng%2==0) {mid = leng/2;leng--;}
 			else {mid=(leng/2)+1;leng--;}
-			outerloop:
-			for(int i=0;i<=leng;i++){
-				//Set checkUniq = new HashSet (Arrays.asList(allEntries));
-				//System.out.print(Arrays.toString(allEntries));System.out.print("--"+checkUniq);
-				if(i==mid)break outerloop;
-				//System.out.format("%s,%s,%s\n",allEntries[i],"--",allEntries[leng-i]);
-				else if(allEntries[i]==allEntries[leng-i]) {
-					cntr++;
-				}else {
-					break outerloop;
-				}
+			
+			if(leng>1) {
+				outerloop:
+				for(int i=0;i<=leng;i++){
+					if(i==mid)break outerloop;
+					else if(allEntries[i].equals(allEntries[leng-i])) {
+						//System.out.format("%s%s%s\n",allEntries[i],"--",allEntries[leng-i]);
+						cntr++;
+					}else {
+						break outerloop;
+						}
+					}
+			}
+			else if(leng==0) {retrncntr++;}
+			if(mid==cntr) {
+				System.out.println(Arrays.toString(allEntries)); 
+			//	System.out.format("\n%d%s%d\n",mid,"-Inside-",cntr);
+				retrncntr++;
 			}
 		}
 		return retrncntr;
